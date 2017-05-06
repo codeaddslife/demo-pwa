@@ -1,0 +1,7 @@
+{
+  "name": "mybike",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "browser-sync start --server"
+  }
+}
