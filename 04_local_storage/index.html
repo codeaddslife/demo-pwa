@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MyBike</title>
+        <link rel="icon" type="image/png" href="img/favicon.png">
+        <link rel="manifest" href="manifest.json">
+        <link rel="stylesheet" href="main.css" media="all" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+        <div id="app">
+            <div id="logo">
+                <img src="img/logo.png" alt="MyBike" />
+                <p><small>Last Updated: {{lastUpdated}}</small></p>
+            </div>
+            <ul class="stations">
+                <li v-for="station in stations">
+                    <div class="station">
+                        <div class="status">
+                            <img v-if="station.bikes == station.slots" src="img/status-full.png" alt="{{station.address}}" />
+                            <img v-else-if="station.bikes > 0" src="img/status-available.png" alt="{{station.address}}" />
+                            <img v-else-if="station.bikes == 0" src="img/status-empty.png" alt="{{station.address}}" />
+                            <img v-else-if="station.status != OPN" src="img/status-closed.png" alt="{{station.address}}" />
+                        </div>
+                        <strong>{{station.address}} {{station.addressNumber}}</strong>
+                        <div>Bikes: {{station.bikes}} - Slots {{station.slots}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <script src="js/axios.min.js"></script>
+        <script src="js/vue.min.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
