@@ -3,13 +3,21 @@ var app = new Vue({
     data: {
         position: null,
         lastUpdated: null,
-        stations: []
+        stations: [],
+        subscription: null,
+        swRegistration: null
     },
     beforeMount: function () {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js').then(function(registration) {
                 console.log('ServiceWorker registration successful');
-            }).catch(function(err) {
+                this.swRegistration = registration;
+                registration.pushManager.getSubscription()
+                    .then(function(subscription) {
+                        this.subscription = subscription;
+                    }.bind(this));
+
+            }.bind(this)).catch(function(err) {
                 console.log('ServiceWorker registration failed: ', err);
             });
         }
@@ -59,6 +67,39 @@ var app = new Vue({
             this.stations.sort(function(a, b) {
                 return a.distance - b.distance;
             });
+        },
+        subscribe: function() {
+            const applicationServerKey = this.urlB64ToUint8Array("BBguu1xylfbRVZa3LYuaIgg5wqDa4bGUE4DGY4ZSLehyfn4e7ZEv3IO9gmxWkpzBJHoNyCxJICRm_E7_uKLUtJ0");
+            this.swRegistration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: applicationServerKey
+            }).then(function(subscription) {
+                console.log('User is subscribed.');
+                this.subscription = subscription;
+            }.bind(this));
+        },
+        unsubscribe: function() {
+            this.swRegistration.pushManager.getSubscription()
+                .then(function(subscription) {
+                    if (subscription) {
+                        subscription.unsubscribe();
+                        this.subscription = null;
+                        console.log('User is unsubscribed.');
+                    }
+                }.bind(this))
+        },
+        urlB64ToUint8Array: function (base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                .replace(/\-/g, '+')
+                .replace(/_/g, '/');
+
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            for (var i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
         }
     }
 });

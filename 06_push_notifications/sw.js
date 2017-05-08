@@ -49,3 +49,20 @@ self.addEventListener('fetch', function(event) {
         })
     );
 });
+
+self.addEventListener('push', function(event) {
+    event.waitUntil(self.registration.showNotification('MyBike', {
+        body: event.data.text(),
+        icon: 'img/icon-192.png'
+    }));
+});
+
+self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    event.waitUntil(
+        clients.openWindow('https://www.velo-antwerpen.be/en/news')
+    );
+});
+
+
+

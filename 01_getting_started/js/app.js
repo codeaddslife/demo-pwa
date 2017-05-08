@@ -8,11 +8,10 @@ var app = new Vue({
     },
     methods: {
         loadStations: function () {
-            var self = this;
             axios.get('/stations.json')
                 .then(function (response) {
-                    self.stations = response.data;
-                })
+                    this.stations = response.data;
+                }.bind(this))
                 .catch(function (error) {
                     console.log(error);
                 });

@@ -12,8 +12,16 @@
         <div id="app">
             <div id="logo">
                 <img src="img/logo.png" alt="MyBike" />
-                <p><small>Last Updated: {{lastUpdated}}</small></p>
+                <p>
+                    <small v-if="lastUpdated">Last Updated: {{lastUpdated}} -
+                        <a v-if="!subscription" href="javascript:void(0)" v-on:click="subscribe()">Enable notifications</a>
+                        <a v-if="subscription" href="javascript:void(0)" v-on:click="unsubscribe()">Disable notifications</a>
+                    </small>
+                </p>
             </div>
+
+            {{subscription}}
+
             <ul class="stations">
                 <li v-for="station in stations">
                     <div class="station">
