@@ -24,7 +24,7 @@ In this project we build a progressive web app for my hometown's
 part of their public transport system. In our app, we want to show the availability of bikes per station (And also show the closest
 station, if you wanted to hop onto a bike right away).
 
-[image:velo](./img/velo.jpg)
+![velo](./img/velo.jpg)
 
 I used [Vue.js](vuejs.org) for this. This application is kept as simple as possible to focus on the PWA-specific parts.
 For a real world Vue.js application, you might want to check out Vue's [CLI tool](https://github.com/vuejs/vue-cli).
@@ -122,7 +122,7 @@ npm start
 
 The app will now render beautifully on the different browsers.
 
-[image:getting started](./img/getting_started.png)
+![getting started](./img/getting_started.png)
 
 # Service workers
 [Service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) are a 
@@ -191,7 +191,7 @@ application very quickly. In our case, these are all used files, without the sta
 
 If you try to cache a file that cannot be retrieved, the service worker won't be installed
 
-[image:Service Worker failed to install](./img/error_sw.png)
+![Service Worker failed to install](./img/error_sw.png)
 
 Once the ServiceWorker is installed, we can listen to the activate-event. 
 
@@ -292,7 +292,7 @@ If you configured the web app manifest correctly, the browser might decide to sh
 [Install Banner](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/). When and if
 the install banner is opened is browser-specifc and can be changed over time.
 
-[image:install banner](./img/install_banner.png)
+![install banner](./img/install_banner.png)
 
 ## Local Storage
 The web has many features available that help create an app-like experience, like 
@@ -432,7 +432,7 @@ var app = new Vue({
 For our final touch, we implement push notifications to engage users to use our app. Push notifications for progressive web apps work in 2 parts: [Web Notifications](https://notifications.spec.whatwg.org) and the [Push API](https://w3c.github.io/push-api).
 Web notifications look like this: 
 
-[image:Web Notifications](./img/notifications.png)
+![Web Notifications](./img/notifications.png)
 
 We can show this, when a push-event is triggered in our service worker:
 
@@ -517,16 +517,16 @@ urlB64ToUint8Array: function (base64String) {
 In order to send push notifications, we need to have a push notification server. We will use Google's [Push Companion](https://web-push-codelab.appspot.com/) website for this. 
 In the above code, replace "<YOUR\_PUBLIC\_KEY>" with the public key that is generated for you on the Push Companion website: 
 
-[image:web companion site](./img/web_companion_site.png)
+![web companion site](./img/web_companion_site.png)
 
 Reload the MyBike-application and press 'Enable notifications'. After a few moments, the text should switch to 'Disable notifications', meaning that we are now subscribed, and you can 
 disable them again when needed. The subscription itself is shown in blue.
 
-[image:subscription info](./img/push_subscription_info.png)
+![subscription info](./img/push_subscription_info.png)
 
 Copy the subscription and paste it in the Push Companion site:
 
-[image:send push message](./img/send_push_message.png)
+![send push message](./img/send_push_message.png)
 
 You should now see the same notification message as before, but then triggered by the push notification service. 
 
